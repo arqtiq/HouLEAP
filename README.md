@@ -6,6 +6,8 @@ No listening server nor panel needed, only a simple set of nodes to handle all y
 
 ![alt text](https://user-images.githubusercontent.com/6809654/44048510-d25513dc-9f31-11e8-83bb-347051798b1f.PNG)
 
+An example hip file is included to get you started.
+
 # Setup
 
 First, you obviously have to install the Leap Motion drivers.
@@ -76,3 +78,7 @@ hou.session.leap['enabled']     # defines if the leap is enabled (only used for 
 hou.session.leap['controller']  # leap controller interface
 hou.session.leap['frame']       # latest read data frame
 ```
+
+# Author
+
+- Gratien Vernier - https://www.linkedin.com/in/gratien-vernier/

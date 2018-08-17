@@ -16,7 +16,7 @@ Then, simply copy the content of the **/houdini16.x** folder to your houdini hom
 
 Alternatively, keep them in your GitHub local repo, and link it from your **houdini.env** config file :
 ```
-LEAP = C:\Path\To\GitHub\HouLEAP
+LEAP = C:\Path\To\GitHub\HouLEAP\houdini16.x
 HOUDINI_PATH = $LEAP;&
 ```
 This hasn't been tested under a version of houdini below 16.0 and another OS than Windows. 
@@ -78,6 +78,14 @@ hou.session.leap['enabled']     # defines if the leap is enabled (only used for 
 hou.session.leap['controller']  # leap controller interface
 hou.session.leap['frame']       # latest read data frame
 ```
+
+# Updates
+
+### 17/08/2018
+- LEAP_DummyHands : fix missing prim attributes
+- LEAP_Initialize : fix comments typo
+- LEAP_HandsGeometry : add packing option
+- Fix houdini.env example in readme
 
 # Author
 

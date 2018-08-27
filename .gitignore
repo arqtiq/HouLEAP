@@ -1,2 +1,3 @@
-
-houdini16.x/otls/backup/*.hda
+backup/
+houdini16.x/otls/backup/
+capture/

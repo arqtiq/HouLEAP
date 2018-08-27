@@ -48,6 +48,7 @@ You can get simple mesh shapes with custom sizes / colors, or smoother versions 
 
 ![alt text](https://user-images.githubusercontent.com/6809654/44051411-12c98c88-9f3a-11e8-9693-b5512be7d538.PNG)*Mesh*
 ![alt text](https://user-images.githubusercontent.com/6809654/44051414-144a728e-9f3a-11e8-9649-7cc2aadd9738.PNG)*Smooth*
+![alt text](https://user-images.githubusercontent.com/6809654/44676337-3ee43f80-aa33-11e8-873e-7638a4f394c0.PNG)*PointCloud*
 
 ### LEAP_DummyHands
 ![alt text](https://user-images.githubusercontent.com/6809654/44050968-d6ff2588-9f38-11e8-9914-164bc0a41819.PNG)
@@ -71,15 +72,22 @@ You can use it before or after using the **LEAP_HandsGeometry** sop.
 
 All the leap data is stored into the python **hou.session**.
 
-**hou.session.leap** is a dictionnary packing everything you'll need :
+**hou.session.leap** is a class (Hou) packing everything you'll need :
 ```
-hou.session.leap['connected']   # defines if the leap motion device is connected
-hou.session.leap['enabled']     # defines if the leap is enabled (only used for the leap nodes)
-hou.session.leap['controller']  # leap controller interface
-hou.session.leap['frame']       # latest read data frame
+hou.session.leap.is_connected()    # defines the leap motion device state
+hou.session.leap.get_frame()       # get current frame tracking data
+hou.session.leap.enable()          # enable leap controller interface
+hou.session.leap.disable()         # disable leap controller interface
 ```
 
 # Updates
+
+### 27/08/2018
+- new python session code
+- arms tracking
+- changing device state actually change device pause state
+- LEAP_HandsGeometry : added point cloud output
+- .gitignore
 
 ### 17/08/2018
 - LEAP_DummyHands : fix missing prim attributes

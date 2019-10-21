@@ -39,6 +39,8 @@ This is the main node of this process that does all the magic.
 
 It reads the data frame from the leap device and creates all the basic geo, groups and attributes that represents the detected hands motions.
 
+**This node runs on _Frames_, so you'll have to run the timeline to update your tracking !**
+
 ### LEAP_HandsGeometry
 ![alt text](https://user-images.githubusercontent.com/6809654/44050966-d5e0eee8-9f38-11e8-9d23-276ca88973de.PNG)
 

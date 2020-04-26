@@ -12,11 +12,11 @@ An example hip file is included to get you started.
 
 First, you obviously have to install the Leap Motion drivers.
 
-Then, simply copy the content of the **/houdini16.x** folder to your houdini home/hsite folder.
+Then, simply copy the content of the **/houdini** folder to your houdini home/hsite folder (houdini 17.x, houdini 18.0).
 
 Alternatively, keep them in your GitHub local repo, and link it from your **houdini.env** config file :
 ```
-LEAP = C:\Path\To\GitHub\HouLEAP\houdini16.x
+LEAP = C:\Path\To\GitHub\HouLEAP\houdini
 HOUDINI_PATH = $LEAP;&
 ```
 This hasn't been tested under a version of houdini below 16.0 and another OS than Windows. 
@@ -70,11 +70,11 @@ This nodes adds lots of visualizers in the viewport to better understand the att
 
 You can use it before or after using the **LEAP_HandsGeometry** sop.
 
-# For Devs
+# For TDs
 
 All the leap data is stored into the python **hou.session**.
 
-**hou.session.leap** is a class (Hou) packing everything you'll need :
+**hou.session.leap** is a class (HouLeap) packing everything you'll need :
 ```
 hou.session.leap.is_connected()    # defines the leap motion device state
 hou.session.leap.get_frame()       # get current frame tracking data
@@ -83,6 +83,10 @@ hou.session.leap.disable()         # disable leap controller interface
 ```
 
 # Updates
+
+### 26/04/2020
+- externalized python code
+- initialize fix
 
 ### 27/08/2018
 - new python session code

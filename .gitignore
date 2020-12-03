@@ -1,3 +1,4 @@
 backup/
 houdini16.x/otls/backup/
 capture/
+**/*.pyc

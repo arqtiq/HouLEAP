@@ -48,18 +48,7 @@ This node is here to build a basic hand geometry setup.
 
 You can get simple mesh shapes with custom sizes / colors, or smoother versions from VDB conversion.
 
-![alt text](https://user-images.githubusercontent.com/6809654/44051411-12c98c88-9f3a-11e8-9693-b5512be7d538.PNG)*Mesh*
-![alt text](https://user-images.githubusercontent.com/6809654/44051414-144a728e-9f3a-11e8-9649-7cc2aadd9738.PNG)*Smooth*
-![alt text](https://user-images.githubusercontent.com/6809654/44676337-3ee43f80-aa33-11e8-873e-7638a4f394c0.PNG)*PointCloud*
-
-### LEAP_DummyHands
-![alt text](https://user-images.githubusercontent.com/6809654/44050968-d6ff2588-9f38-11e8-9914-164bc0a41819.PNG)
-
-This node generates a static representation of the hands gotten from the tracking.
-
-This can be helpful to work on later logic of the network without needing any tracking data.
-
-All the groups & attributes included.
+![alt text](https://i.imgur.com/tc7XIHj.png)
 
 ### LEAP_Debug
 ![alt text](https://user-images.githubusercontent.com/6809654/44050970-d84760d6-9f38-11e8-8323-3edfc30b8516.PNG)
@@ -83,6 +72,12 @@ hou.session.leap.disable()         # disable leap controller interface
 ```
 
 # Updates
+
+### 30/12/2020
+- deprecate DummyHands HDA
+- add missing tip bone
+- rework hand palm geo
+- fix doubled metacarpal bone on thumbs
 
 ### 26/04/2020
 - externalized python code

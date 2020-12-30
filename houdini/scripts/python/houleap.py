@@ -2,6 +2,8 @@ from __future__ import print_function
 import Leap
 import hou
 
+# https://developer-archive.leapmotion.com/documentation/python/api/Leap_Classes.html
+
 class HouLeap:
     def __init__(self, node):
         self.init_node = node
@@ -45,8 +47,8 @@ def is_init():
     return hasattr(hou.session, "leap")
 
 def raise_not_init(node):
-    raise hou.NodeError("Leap not initialized")
     set_node_comment(node, "Leap not initialized")
+    raise hou.NodeError("Leap not initialized")
 
 def invoke(node, func):
     if is_init():
@@ -75,65 +77,70 @@ def track(node):
     f_group = geo.findPointGroup("fingers")
     h_group = geo.findPointGroup("hands")
     a_group = geo.findPointGroup("arms")
+    t_group = geo.findPointGroup("tips")
     
-    for i,h in enumerate(frame.hands, start=1):
-        
+    # hands
+    for i,h in enumerate(frame.hands, start=1):  
         if node.parent().evalParm("hands"):
-            
-            hou_p = leap_to_hou(h.palm_position)
-            hou_d = leap_to_hou(h.direction)
-            hou_n = leap_to_hou(h.palm_normal)
-            
             p = geo.createPoint()
-            p.setPosition(hou_p)
-            p.setAttribValue("dir", hou_d)
-            p.setAttribValue("palm_N", hou_n)
-            p.setAttribValue("hand", i)           
-            h_group.add(p)        
+            p.setPosition(leap_to_hou(h.palm_position))
+            p.setAttribValue("dir", leap_to_hou(h.direction))
+            p.setAttribValue("palm_N", leap_to_hou(h.palm_normal))
+            p.setAttribValue("palm_width", h.palm_width)
+            p.setAttribValue("hand", i)
+            h_group.add(p)
     
+        # fingers
         for j,f in enumerate(h.fingers):
-        
-            bones = [f.bone(Leap.Bone.TYPE_METACARPAL),
+            bones = [
                      f.bone(Leap.Bone.TYPE_PROXIMAL),
                      f.bone(Leap.Bone.TYPE_INTERMEDIATE),
                      f.bone(Leap.Bone.TYPE_DISTAL)]
+            # don't track metacarpal bone for thumbs
+            if j > 0:
+                bones.insert(0, f.bone(Leap.Bone.TYPE_METACARPAL))
             prim = geo.createPolygon()
             prim.setIsClosed(False)
             
+            # bones
             for k,bone in enumerate(bones):
-            
-                leap_p = bone.center
-                leap_d = bone.direction       
-                hou_p = leap_to_hou(bone.center)
                 hou_d = leap_to_hou(bone.direction)
                 
                 p = geo.createPoint()
-                p.setPosition(hou_p)
+                p.setPosition(leap_to_hou(bone.prev_joint))
                 p.setAttribValue("finger", j)
                 p.setAttribValue("bone", k)
                 p.setAttribValue("hand", i)
                 p.setAttribValue("dir", hou_d)
                 f_group.add(p)
-                prim.addVertex(p)    
-                
-        if node.parent().evalParm("arms"):
-            
-            hou_e_p = leap_to_hou(h.arm.elbow_position)
-            hou_w_p = leap_to_hou(h.arm.wrist_position)
-            hou_d = leap_to_hou(h.arm.direction)
+                prim.addVertex(p)
 
+                if k == len(bones) - 1:
+                    p = geo.createPoint()
+                    p.setPosition(leap_to_hou(bone.next_joint))
+                    p.setAttribValue("finger", j)
+                    p.setAttribValue("bone", k)
+                    p.setAttribValue("hand", i)
+                    p.setAttribValue("dir", hou_d)
+                    f_group.add(p)
+                    t_group.add(p)
+                    prim.addVertex(p)
+                
+        if node.parent().evalParm("arms"):           
             prim = geo.createPolygon()
             prim.setIsClosed(False)
 
-            p = geo.createPoint()   # elbow
-            p.setPosition(hou_e_p)
+            p = geo.createPoint()   # wrist
+            p.setPosition(leap_to_hou(h.arm.wrist_position))
             p.setAttribValue("hand", i)
-            p.setAttribValue("dir", hou_d)
+            p.setAttribValue("dir", leap_to_hou(h.arm.direction))
+            p.setAttribValue("arm_width", h.arm.width )
             a_group.add(p)
             prim.addVertex(p)
 
-            p = geo.createPoint()   # wrist
-            p.setPosition(hou_w_p)
+            p = geo.createPoint()   # elbow
+            p.setPosition(leap_to_hou(h.arm.elbow_position))
             p.setAttribValue("hand", i)
+            p.setAttribValue("dir", leap_to_hou(h.arm.direction))
             a_group.add(p)
             prim.addVertex(p)

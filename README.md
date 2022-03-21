@@ -10,9 +10,11 @@ An example hip file is included to get you started.
 
 # Setup
 
+> :warning: The LEAP Motion base library **only works with python 2**, make sure to use this plugin if you haven't installed a python 3 houdini version (now default)!
+
 First, you obviously have to install the Leap Motion drivers.
 
-Then, simply copy the content of the **/houdini** folder to your houdini home/hsite folder (houdini 17.x, houdini 18.0).
+Then, simply copy the content of the **/houdini** folder to your houdini home/hsite folder (Documents/houdini 1X.X).
 
 Alternatively, keep them in your GitHub local repo, and link it from your **houdini.env** config file :
 ```
